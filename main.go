@@ -3,6 +3,7 @@ package main
 import (
 	"github.com/robertbrignull/adventofcode2018/day1"
 	"github.com/robertbrignull/adventofcode2018/day2"
+	"github.com/robertbrignull/adventofcode2018/day3"
 	"log"
 	"os"
 	"strconv"
@@ -12,6 +13,7 @@ func runDay(dayNum int) {
 	switch dayNum {
 	case 1: day1.Run()
 	case 2: day2.Run()
+	case 3: day3.Run()
 	}
 }
 
