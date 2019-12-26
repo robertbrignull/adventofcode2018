@@ -1,6 +1,7 @@
 package main
 
 import (
+	"fmt"
 	"github.com/robertbrignull/adventofcode2018/day1"
 	"github.com/robertbrignull/adventofcode2018/day2"
 	"github.com/robertbrignull/adventofcode2018/day3"
@@ -21,7 +22,8 @@ func main() {
 	args := os.Args
 
 	if len(args) == 1 {
-		for i := 0; i < 25; i++ {
+		for i := 1; i <= 25; i++ {
+			fmt.Printf("Day %d results...\n", i)
 			runDay(i)
 		}
 	} else if len(args) == 2 {
