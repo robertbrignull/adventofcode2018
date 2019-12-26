@@ -64,76 +64,31 @@ func getInput() []event {
 		return result[i].timestamp < result[j].timestamp
 	})
 
-	// Fill in the missing guard numbers
-	currentGuardNum := -1
-	for i, event := range result {
-		if event.action == startsShift {
-			currentGuardNum = event.guardNum
-		} else {
-			result[i].guardNum = currentGuardNum
-		}
-	}
-
-	// Verify no guard numbers are left unfilled
-	for _, event := range result {
-		if event.guardNum == -1 {
-			log.Fatal("Could not populate guard numbers")
-		}
-	}
-
 	return result
 }
 
-func countGuardSleeps(events []event) map[int]int64 {
-	guardSleepCounts := make(map[int]int64)
+type guard struct {
+	num int
+	totalSleep int
+	sleepByMinute [60]int
+}
+
+func parseGuards(events []event) map[int]guard {
+	guards := make(map[int]guard)
 	currentGuardNum := -1
-	var currentSleepStart int64 = -1
+	currentSleepStart := -1
 	for _, event := range events {
 		switch event.action {
 		case startsShift:
 			currentGuardNum = event.guardNum
 			currentSleepStart = -1
 		case fallsAsleep:
-			currentSleepStart = event.timestamp
-		case wakesUp:
-			if currentSleepStart == -1 || currentGuardNum == -1 {
-				log.Fatal("Woke up without falling asleep")
-			}
-			guardSleepCounts[currentGuardNum] = guardSleepCounts[currentGuardNum] + (event.timestamp - currentSleepStart)
-		}
-	}
-	return guardSleepCounts
-}
-
-func findSleepiestGuard(events []event) int {
-	guardSleepCounts := countGuardSleeps(events)
-
-	sleepiestGuard := -1
-	var mostSleep int64 = 0
-	for guardNum, sleepCount := range guardSleepCounts {
-		if sleepCount > mostSleep {
-			sleepiestGuard = guardNum
-			mostSleep = sleepCount
-		}
-	}
-	return sleepiestGuard
-}
-
-func findSleepiestMinute(guardNum int, events []event) int {
-	minutes := make([]int, 60)
-	currentSleepStart := -1
-	for _, event := range events {
-		if event.guardNum != guardNum {
-			continue
-		}
-		switch event.action {
-		case fallsAsleep:
 			currentSleepStart = int((((event.timestamp / 60) % 60) + 60) % 60)
 			if currentSleepStart < 0 || currentSleepStart >= 60 {
 				log.Fatal("sleep start \"" + strconv.Itoa(currentSleepStart) + "\" out of range")
 			}
 		case wakesUp:
-			if currentSleepStart == -1 {
+			if currentSleepStart == -1 || currentGuardNum == -1 {
 				log.Fatal("Woke up without falling asleep")
 			}
 			currentSleepEnd := int((((event.timestamp / 60) % 60) + 60) % 60)
@@ -144,30 +99,51 @@ func findSleepiestMinute(guardNum int, events []event) int {
 				log.Fatal("sleep end \"" + strconv.Itoa(currentSleepEnd) +
 					"\" before sleep start \"" + strconv.Itoa(currentSleepStart) + "\"")
 			}
-			for minute := currentSleepStart; minute < currentSleepEnd; minute++ {
-				minutes[minute] = minutes[minute] + 1
+
+			currentGuard, ok := guards[currentGuardNum]
+			if !ok {
+				var sleepByMinute [60]int
+				currentGuard = guard {
+					num: currentGuardNum,
+					totalSleep: 0,
+					sleepByMinute: sleepByMinute,
+				}
 			}
+			currentGuard.totalSleep += currentSleepEnd - currentSleepStart
+			for i := currentSleepStart; i < currentSleepEnd; i++ {
+				currentGuard.sleepByMinute[i] += 1
+			}
+
+			guards[currentGuardNum] = currentGuard
+		}
+	}
+	return guards
+}
+
+func part1(guards map[int]guard) {
+	sleepiestGuardNum := -1
+	sleepiestGuardValue := 0
+	for _, guard := range guards {
+		if guard.totalSleep > sleepiestGuardValue {
+			sleepiestGuardNum = guard.num
+			sleepiestGuardValue = guard.totalSleep
 		}
 	}
 
 	sleepiestMinute := -1
-	mostAsleep := -1
-	for minute, sleepiness := range minutes {
-		if sleepiness > mostAsleep {
+	sleepiestMinuteValue := -1
+	for minute, sleepiness := range guards[sleepiestGuardNum].sleepByMinute {
+		if sleepiness > sleepiestMinuteValue {
 			sleepiestMinute = minute
-			mostAsleep = sleepiness
+			sleepiestMinuteValue = sleepiness
 		}
 	}
-	return sleepiestMinute
-}
 
-func part1() {
-	events := getInput()
-	sleepiestGuard := findSleepiestGuard(events)
-	sleepiestMinute := findSleepiestMinute(sleepiestGuard, events)
-	fmt.Printf("part 1 result = %d\n", sleepiestGuard * sleepiestMinute)
+	fmt.Printf("part 1 result = %d\n", sleepiestGuardNum * sleepiestMinute)
 }
 
 func Run() {
-	part1()
+	events := getInput()
+	guards := parseGuards(events)
+	part1(guards)
 }
