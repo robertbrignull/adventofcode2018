@@ -10,6 +10,7 @@ import (
 
 func getInput() []string {
 	input := util.ReadFile("./day2/day2_input")
+	input = strings.Replace(input, "\r\n", "\n", -1)
 	return strings.Split(input, "\n")
 }
 

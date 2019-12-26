@@ -10,8 +10,10 @@ import (
 
 func getInput() []int {
 	input := util.ReadFile("./day1/day1_input")
+	input = strings.Replace(input, "\r\n", "\n", -1)
+	lines := strings.Split(input, "\n")
 	var result []int
-	for _, line := range strings.Split(input, "\n") {
+	for _, line := range lines {
 		x, err := strconv.Atoi(line)
 		if err != nil {
 			log.Fatal(err)

@@ -23,9 +23,11 @@ type rect struct {
 
 func getInput() []claim {
 	input := util.ReadFile("./day3/day3_input")
+	input = strings.Replace(input, "\r\n", "\n", -1)
+	lines := strings.Split(input, "\n")
 	var claims []claim
 	claimRegex := regexp.MustCompile(`^#(\d+) @ (\d+),(\d+): (\d+)x(\d+)$`)
-	for _, line := range strings.Split(input, "\n") {
+	for _, line := range lines {
 		match := claimRegex.FindStringSubmatch(line)
 		if match == nil {
 			log.Fatal("Unable to parse \"" + line + "\"")
