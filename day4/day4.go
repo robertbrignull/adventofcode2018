@@ -142,8 +142,26 @@ func part1(guards map[int]guard) {
 	fmt.Printf("part 1 result = %d\n", sleepiestGuardNum * sleepiestMinute)
 }
 
+func part2(guards map[int]guard) {
+	sleepiestGuardNum := -1
+	sleepiestMinute := -1
+	maxSleepinessValue := 0
+	for minute := 0; minute < 60; minute++ {
+		for _, guard := range guards {
+			if guard.sleepByMinute[minute] > maxSleepinessValue {
+				sleepiestGuardNum = guard.num
+				sleepiestMinute = minute
+				maxSleepinessValue = guard.sleepByMinute[minute]
+			}
+		}
+	}
+
+	fmt.Printf("part 2 result = %d\n", sleepiestGuardNum * sleepiestMinute)
+}
+
 func Run() {
 	events := getInput()
 	guards := parseGuards(events)
 	part1(guards)
+	part2(guards)
 }
