@@ -9,6 +9,7 @@ import (
 	"github.com/robertbrignull/adventofcode2018/day5"
 	"github.com/robertbrignull/adventofcode2018/day6"
 	"github.com/robertbrignull/adventofcode2018/day7"
+	"github.com/robertbrignull/adventofcode2018/day8"
 	"log"
 	"os"
 	"strconv"
@@ -23,6 +24,7 @@ func runDay(dayNum int) {
 	case 5: day5.Run()
 	case 6: day6.Run()
 	case 7: day7.Run()
+	case 8: day8.Run()
 	}
 }
 
