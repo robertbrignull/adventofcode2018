@@ -1,4 +1,4 @@
-package day6
+package day06
 
 import (
 	"fmt"
@@ -32,7 +32,7 @@ type board struct {
 func getInput() board {
 	var points []point
 	pointRegex := regexp.MustCompile(`^(\d+), (\d+)$`)
-	for _, line := range strings.Split(util.ReadFile("./day6/day6_input"), "\n") {
+	for _, line := range strings.Split(util.ReadFile("./day06/day06_input"), "\n") {
 		match := pointRegex.FindStringSubmatch(line)
 		if match == nil {
 			log.Fatal("Unable to parse \"" + line + "\"")

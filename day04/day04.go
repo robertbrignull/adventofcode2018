@@ -1,4 +1,4 @@
-package day4
+package day04
 
 import (
 	"fmt"
@@ -24,7 +24,7 @@ type event struct {
 
 func getInput() []event {
 	layout := "2006-01-02 15:04"
-	input := util.ReadFile("./day4/day4_input")
+	input := util.ReadFile("./day04/day04_input")
 	input = strings.Replace(input, "\r\n", "\n", -1)
 	lines := strings.Split(input, "\n")
 	var result []event

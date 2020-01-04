@@ -1,4 +1,4 @@
-package day3
+package day03
 
 import (
 	"fmt"
@@ -22,7 +22,7 @@ type rect struct {
 }
 
 func getInput() []claim {
-	input := util.ReadFile("./day3/day3_input")
+	input := util.ReadFile("./day03/day03_input")
 	input = strings.Replace(input, "\r\n", "\n", -1)
 	lines := strings.Split(input, "\n")
 	var claims []claim

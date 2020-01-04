@@ -1,4 +1,4 @@
-package day8
+package day08
 
 import (
 	"fmt"
@@ -36,7 +36,7 @@ func parseLicenseNode(input []string) (*licenseNode, []string) {
 }
 
 func getInput() *licenseNode {
-	input := strings.Split(util.ReadFile("./day8/day8_input"), " ")
+	input := strings.Split(util.ReadFile("./day08/day08_input"), " ")
 	node, _ := parseLicenseNode(input)
 	return node
 }

@@ -1,4 +1,4 @@
-package day9
+package day09
 
 import (
 	"fmt"
@@ -10,7 +10,7 @@ import (
 
 func getInput() (int, int) {
 	inputRegex := regexp.MustCompile(`^(\d+) players; last marble is worth (\d+) points$`)
-	input := util.ReadFile("./day9/day9_input")
+	input := util.ReadFile("./day09/day09_input")
 	match := inputRegex.FindStringSubmatch(input)
 	if match == nil {
 		log.Fatal("Unable to parse \"" + input + "\"")

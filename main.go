@@ -2,15 +2,15 @@ package main
 
 import (
 	"fmt"
-	"github.com/robertbrignull/adventofcode2018/day1"
-	"github.com/robertbrignull/adventofcode2018/day2"
-	"github.com/robertbrignull/adventofcode2018/day3"
-	"github.com/robertbrignull/adventofcode2018/day4"
-	"github.com/robertbrignull/adventofcode2018/day5"
-	"github.com/robertbrignull/adventofcode2018/day6"
-	"github.com/robertbrignull/adventofcode2018/day7"
-	"github.com/robertbrignull/adventofcode2018/day8"
-	"github.com/robertbrignull/adventofcode2018/day9"
+	"github.com/robertbrignull/adventofcode2018/day01"
+	"github.com/robertbrignull/adventofcode2018/day02"
+	"github.com/robertbrignull/adventofcode2018/day03"
+	"github.com/robertbrignull/adventofcode2018/day04"
+	"github.com/robertbrignull/adventofcode2018/day05"
+	"github.com/robertbrignull/adventofcode2018/day06"
+	"github.com/robertbrignull/adventofcode2018/day07"
+	"github.com/robertbrignull/adventofcode2018/day08"
+	"github.com/robertbrignull/adventofcode2018/day09"
 	"log"
 	"os"
 	"strconv"
@@ -18,15 +18,15 @@ import (
 
 func runDay(dayNum int) {
 	switch dayNum {
-	case 1: day1.Run()
-	case 2: day2.Run()
-	case 3: day3.Run()
-	case 4: day4.Run()
-	case 5: day5.Run()
-	case 6: day6.Run()
-	case 7: day7.Run()
-	case 8: day8.Run()
-	case 9: day9.Run()
+	case 1: day01.Run()
+	case 2: day02.Run()
+	case 3: day03.Run()
+	case 4: day04.Run()
+	case 5: day05.Run()
+	case 6: day06.Run()
+	case 7: day07.Run()
+	case 8: day08.Run()
+	case 9: day09.Run()
 	}
 }
 

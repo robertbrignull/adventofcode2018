@@ -1,4 +1,4 @@
-package day7
+package day07
 
 import (
 	"fmt"
@@ -12,7 +12,7 @@ func getInput() (map[int][]int, int) {
 	result := make(map[int][]int)
 	max := 0
 	lineRegex := regexp.MustCompile(`^Step (.) must be finished before step (.) can begin.$`)
-	for _, line := range strings.Split(util.ReadFile("./day7/day7_input"), "\n") {
+	for _, line := range strings.Split(util.ReadFile("./day07/day07_input"), "\n") {
 		match := lineRegex.FindStringSubmatch(line)
 		if match == nil {
 			log.Fatal("Unable to parse \"" + line + "\"")

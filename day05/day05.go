@@ -1,4 +1,4 @@
-package day5
+package day05
 
 import (
 	"fmt"
@@ -19,7 +19,7 @@ type polymer struct {
 }
 
 func getInput() polymer {
-	input := util.ReadFile("./day5/day5_input")
+	input := util.ReadFile("./day05/day05_input")
 	result := polymer {
 		first: nil,
 		last: nil,

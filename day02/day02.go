@@ -1,4 +1,4 @@
-package day2
+package day02
 
 import (
 	"fmt"
@@ -9,7 +9,7 @@ import (
 )
 
 func getInput() []string {
-	input := util.ReadFile("./day2/day2_input")
+	input := util.ReadFile("./day02/day02_input")
 	input = strings.Replace(input, "\r\n", "\n", -1)
 	return strings.Split(input, "\n")
 }
